@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    tools:context="com.example.lab_cardmatchinggame.MainActivity" >
+	
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="0sp"
+    	android:layout_weight="1"
+    	></FrameLayout>
+    	
+    <RelativeLayout 
+        android:layout_height="match_parent"
+        android:layout_width="0sp"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_Ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="GO!!"
+             />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_Ok"
+            android:layout_marginTop="20dp" 
+            />
+
+    </RelativeLayout>
+
+    
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="0sp"
+    	android:layout_weight="1"
+    	></FrameLayout>
+    
+</LinearLayout>
