@@ -70,7 +70,7 @@ public class easyGame extends Activity implements OnClickListener {
 			tip = false;
 			return;
 		}
-		if(matching == 3){
+		if(matching == CARD_NUMBERS/2){
 			Intent intent = new Intent();
 			intent.setClass(easyGame.this,
 					easyGame.class);
