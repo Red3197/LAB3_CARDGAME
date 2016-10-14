@@ -4,5 +4,10 @@
     <string name="app_name">Lab_cardMatchingGame</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="GameMode">
+        <item >easy Game(6)</item>
+        <item >normal Game(20)</item>
+        <item >hard Game(36)</item>
+    </string-array>
 
 </resources>

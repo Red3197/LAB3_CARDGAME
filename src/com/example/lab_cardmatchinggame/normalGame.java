@@ -13,14 +13,13 @@ import android.widget.ImageView;
 public class normalGame extends Activity implements OnClickListener {
 	//FIXME QQQQQ wheres BUGGGGGG
 	static final int CARD_NUMBERS = 20;
-	ImageButton[] backImages = new ImageButton[CARD_NUMBERS];
-	ImageButton[] cardImages = new ImageButton[CARD_NUMBERS];
+	ImageButton[] normal_backImages = new ImageButton[CARD_NUMBERS];
+	ImageButton[] normal_cardImages = new ImageButton[CARD_NUMBERS];
 	int[] ids;
 	int[] pickBackIds;
 	int[] pickIds;
 	int selecting ;
-	int counter;
-	int[][] ansCard = new int[CARD_NUMBERS][2];
+	int[][] ansCard;
 	int s1 , s2 ;
 	boolean tip ;
 	int matching;
@@ -28,10 +27,11 @@ public class normalGame extends Activity implements OnClickListener {
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_easy);
-		counter= 0;
+		setContentView(R.layout.activity_normal);
 		matching= 0;
-		selecting= -1;
+		selecting= -2;
+		tip= false;
+		s1 = s2 = 0;
 		setIds();
 		setPickIds();
 		findView();
@@ -40,7 +40,16 @@ public class normalGame extends Activity implements OnClickListener {
 		settingCard(ansCard);
 		rememberTime();
 	}
-
+/*
+	public void onClick(View v){}
+	void setIds(){}
+	void setPickIds(){}
+	void findView(){}
+	void setlisten(){}
+	//int[][] randomCard(){return new int[][];}
+	//void settingCard(int[][]){}
+	void rememberTime(){}
+	*/
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -61,17 +70,12 @@ public class normalGame extends Activity implements OnClickListener {
 	}
 	
 	public void onClick(View v){
-		if(counter == 0){
+		if(selecting == -2){
 			for(int i=0; i<CARD_NUMBERS; i++) {
-				backImages[i].setVisibility(ImageView.VISIBLE);
-				cardImages[i].setVisibility(ImageView.INVISIBLE);
+				normal_backImages[i].setVisibility(ImageView.VISIBLE);
+				normal_cardImages[i].setVisibility(ImageView.INVISIBLE);
 			}
-			counter++;
-		}
-		if(tip){
-			tipTime();
-			tip = false;
-			return;
+			selecting= -1;
 		}
 		if(matching == CARD_NUMBERS/2){
 			Intent intent = new Intent();
@@ -80,23 +84,28 @@ public class normalGame extends Activity implements OnClickListener {
 			startActivity(intent);
 			normalGame.this.finish();
 		}
-		for(int i=0; i<CARD_NUMBERS; i++){
-			if(v.getId() == pickBackIds[i]){
-				onClickHappened(i);
+		if(tip){
+			tipTime();
+			tip = false;
+		}else{		
+			for(int i=0; i<CARD_NUMBERS; i++){
+				if(v.getId() == pickBackIds[i]){
+					onClickHappened(i);
+				}
 			}
 		}
 	}
 	
 	void tipTime(){
-		backImages[s1].setVisibility(ImageView.VISIBLE);
-		cardImages[s1].setVisibility(ImageView.INVISIBLE);
-		backImages[s2].setVisibility(ImageView.VISIBLE);
-		cardImages[s2].setVisibility(ImageView.INVISIBLE);
+		normal_backImages[s1].setVisibility(ImageView.VISIBLE);
+		normal_cardImages[s1].setVisibility(ImageView.INVISIBLE);
+		normal_backImages[s2].setVisibility(ImageView.VISIBLE);
+		normal_cardImages[s2].setVisibility(ImageView.INVISIBLE);
 	}
 	
 	void onClickHappened(int index){
-		backImages[index].setVisibility(ImageView.INVISIBLE);
-		cardImages[index].setVisibility(ImageView.VISIBLE);
+		normal_backImages[index].setVisibility(ImageView.INVISIBLE);
+		normal_cardImages[index].setVisibility(ImageView.VISIBLE);
 		if(check())
 			compare(index);
 		else
@@ -125,14 +134,14 @@ public class normalGame extends Activity implements OnClickListener {
 	
 	void rememberTime(){
 		for(int i=0; i<CARD_NUMBERS; i++) {
-			backImages[i].setVisibility(ImageView.INVISIBLE);
-			cardImages[i].setVisibility(ImageView.VISIBLE);
+			normal_backImages[i].setVisibility(ImageView.INVISIBLE);
+			normal_cardImages[i].setVisibility(ImageView.VISIBLE);
 		}
 	}
 	
 	void settingCard(int[][] trueCard){
 		for(int i=0; i<CARD_NUMBERS; i++){
-			cardImages[i].setBackgroundResource(
+			normal_cardImages[i].setBackgroundResource(
 					ids[ trueCard[i][0]+(trueCard[i][1]*13) ] );
 		}
 	}
@@ -168,15 +177,15 @@ public class normalGame extends Activity implements OnClickListener {
 	
 	void setlisten(){
 		for(int i=0; i<CARD_NUMBERS; i++){
-			cardImages[i].setOnClickListener(normalGame.this);
-			backImages[i].setOnClickListener(normalGame.this);
+			normal_cardImages[i].setOnClickListener(normalGame.this);
+			normal_backImages[i].setOnClickListener(normalGame.this);
 		}
 	}
 	
 	void findView(){
 		for(int i=0; i<CARD_NUMBERS; i++){
-			cardImages[i] = (ImageButton)findViewById(pickIds[i]);
-			backImages[i] = (ImageButton)findViewById(pickBackIds[i]);
+			normal_cardImages[i] = (ImageButton)findViewById(pickIds[i]);
+			normal_backImages[i] = (ImageButton)findViewById(pickBackIds[i]);
 		}
 	}
 	
@@ -231,6 +240,5 @@ public class normalGame extends Activity implements OnClickListener {
 		pickIds[18] = R.id.normal_pick19;
 		pickIds[19] = R.id.normal_pick20;
 	}
-	
 	
 }

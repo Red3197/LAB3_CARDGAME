@@ -16,7 +16,6 @@ public class MainActivity extends Activity {
 	Spinner mySpinner;
 	Button btn;
 	private ArrayAdapter<String> difList;
-	final String[] difficults = { "easy" , "normal" , "hard" };
 	final Class[] cls={easyGame.class , normalGame.class , hardGame.class};
 	
 	@Override
@@ -26,7 +25,9 @@ public class MainActivity extends Activity {
 		btn=(Button)findViewById(R.id.btn_Ok);
 		mySpinner=(Spinner)findViewById(R.id.spinner1);
 		
-		difList = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, difficults);         
+		difList = new ArrayAdapter<String>(MainActivity.this,
+				android.R.layout.simple_spinner_item,
+				getResources().getStringArray(R.array.GameMode));         
 		mySpinner.setAdapter(difList);
 		
 		btn.setOnClickListener(new OnClickListener(){
